@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resource\" />
+    <ProjectReference Include="..\Inmobiliaria.Domain\Inmobiliaria.Domain.csproj" />
+    <ProjectReference Include="..\Inmobiliaria.Infraestructura\Inmobiliaria.Infraestructura.csproj" />
   </ItemGroup>
 
 </Project>

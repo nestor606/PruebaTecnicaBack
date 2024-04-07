@@ -9,9 +9,9 @@ namespace Inmobiliaria.Domain.UseCase.Interfaces
 {
     public interface Ipropiedades
     {
-        List<ListPropiedaValorMaxMinDto> GetValorMaxMinPropiedades();
-        Task<PropiedadDto> AgregarPropiedad(PropiedadDto propiedad);
-
+        List<PropiedadDto> GetValorMaxMinPropiedades(int Max, int Min);
+        PropiedadDto AgregarPropiedad(PropiedadDto propiedad);
+        PropiedadDto EliminarPropiedad(string Nombre);
 
     }
 }

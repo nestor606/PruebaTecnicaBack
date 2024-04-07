@@ -20,6 +20,7 @@ namespace Inmobiliaria.Infraestructura.Configuration.EntityConfiguration
             builder.Property(x => x.Ubicacion).HasMaxLength(50).HasColumnName("Ubicacion").HasColumnType("varchar");
             builder.Property(x => x.Disponibilidad).HasMaxLength(50).HasColumnName("Disponibilidad").HasColumnType("varhcar");
             builder.Property(x => x.Precio).HasColumnName("Precio").HasColumnType("int");
+            builder.Property(x => x.Fecha).HasColumnName("Fecha").HasColumnType("varchar");
             builder.Property(x => x.UrlImagen).HasMaxLength(500).HasColumnName("UrlImagen").HasColumnType("varchar");
         }
     }

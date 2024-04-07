@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Inmobiliaria.Domain.DTO
 {
-    public class ListPropiedaValorMaxMinDto
+    public class ResponseDto
     {
-        public int Maximo { get; set; }
-        public int Minimo { get; set; }
+        public StatusDto? Status { get; set; }
+        public object? Data { get; set; }
     }
 }

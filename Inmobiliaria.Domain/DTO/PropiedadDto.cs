@@ -11,7 +11,8 @@ namespace Inmobiliaria.Domain.DTO
         public string Nombre { get; set; }
         public string Ubicacion { get; set; }
         public string Disponibilidad { get; set; }
-        public int Precion { get; set; }
+        public int Precio { get; set; }
         public string UrlImagen { get; set; }
+        public string Fecha { get; set; }
     }
 }

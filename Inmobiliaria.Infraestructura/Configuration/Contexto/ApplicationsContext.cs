@@ -12,8 +12,8 @@ namespace Inmobiliaria.Infraestructura.Configuration.Contexto
 {
     public class ApplicationsContext:DbContext
     {
-        public DbSet<Propiedad> Propiedades { get; set; }
-        public DbSet<Arrendar> Arredamiento { get; set; }
+        public DbSet<Propiedad> Propiedad { get; set; }
+        public DbSet<Arrendar> Arredar { get; set; }
 
         public ApplicationsContext()
         {
@@ -21,11 +21,12 @@ namespace Inmobiliaria.Infraestructura.Configuration.Contexto
         }
         public ApplicationsContext(DbContextOptions<ApplicationsContext> options) : base(options)
         {
+
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Inventario;User ID=prueba;Password=pruebapass;Application Name=MyApp");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Inventario;User ID=prueba;Password=pruebapass;Application Name=MyApp");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
 
