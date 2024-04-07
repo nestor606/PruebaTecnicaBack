@@ -8,6 +8,7 @@ namespace Inmobiliaria.Infraestructura.Configuration.Entitty
 {
     public class Arrendar
     {
+        public int IdArrendamiento { get; set; }
         public int Propiedad { get; set; }
         public string Estado { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using Inmobiliaria.Infraestructura.Configuration.Entitty;
+using Inmobiliaria.Infraestructura.Configuration.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Inmobiliaria.Infraestructura.Configuration.Contexto
     public class ApplicationsContext:DbContext
     {
         public DbSet<Propiedad> Propiedades { get; set; }
+        public DbSet<Arrendar> Arredamiento { get; set; }
 
         public ApplicationsContext()
         {
@@ -28,7 +30,8 @@ namespace Inmobiliaria.Infraestructura.Configuration.Contexto
         {
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new EmpleadoConfig());
+            modelBuilder.ApplyConfiguration(new PropiedadesConfiguration());
+            modelBuilder.ApplyConfiguration(new ArrendarConfiguration());
         }
     }
 }
