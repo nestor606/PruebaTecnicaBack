@@ -24,9 +24,9 @@ namespace Inmobiliaria.Infraestructura.Configuration.Contexto
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=RRHH_TEST;Trusted_Connection=True;Encrypt=Optional;");
+            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Inventario;User ID=prueba;Password=pruebapass;Application Name=MyApp");
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
 
             base.OnModelCreating(modelBuilder);
