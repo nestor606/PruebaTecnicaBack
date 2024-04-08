@@ -16,6 +16,9 @@ namespace Inmobiliaria.Domain.Util.Mapper
             CreateMap<PropieadadDomain, PropiedadDto>();
             CreateMap<PropiedadDto, PropieadadDomain>();
 
+            CreateMap<PropieadadDomain,CreatePropiedadDto>();
+            CreateMap<CreatePropiedadDto, PropieadadDomain>();
+
             CreateMap<ArrendarDomain, ArrendarDTO>();
             CreateMap<ArrendarDTO, ArrendarDomain>();
 

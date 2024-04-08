@@ -13,9 +13,9 @@ namespace Inmobiliaria.Infraestructura.Configuration.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Propiedad> builder)
         {
-            builder.HasKey(x => x.IdPropiedad);
+            builder.HasKey(x => x.IdPopiedad);
 
-            builder.Property(x => x.IdPropiedad).HasMaxLength(50).HasColumnName("IdPopiedad").HasColumnType("int");
+            builder.Property(x => x.IdPopiedad).HasMaxLength(50).HasColumnName("IdPopiedad").HasColumnType("int");
             builder.Property(x => x.Nombre).HasMaxLength(50).HasColumnName("Nombre").HasColumnType("varhcar");
             builder.Property(x => x.Ubicacion).HasMaxLength(50).HasColumnName("Ubicacion").HasColumnType("varchar");
             builder.Property(x => x.Disponibilidad).HasMaxLength(50).HasColumnName("Disponibilidad").HasColumnType("varhcar");

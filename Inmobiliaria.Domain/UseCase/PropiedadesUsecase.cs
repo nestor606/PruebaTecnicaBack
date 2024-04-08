@@ -17,8 +17,9 @@ namespace Inmobiliaria.Domain.UseCase
              _repos = propiedadesRepos;
             _mapper = mapper;
         }
-        public PropiedadDto AgregarPropiedad(PropiedadDto propiedad)
+        public CreatePropiedadDto AgregarPropiedad(CreatePropiedadDto propiedad)
         {
+
             PropiedadDto Dto = ExisteData(propiedad.Nombre);
 
             if (Dto != null)
@@ -53,7 +54,6 @@ namespace Inmobiliaria.Domain.UseCase
 
         public List<PropiedadDto> GetValorMaxMinPropiedades(int Max, int Min)
         {
-            StatusDto statusDto = new StatusDto();
             var request =  _repos.GetValorMaxMin(Max,Min).ToList();
             return request;
         }
@@ -62,16 +62,36 @@ namespace Inmobiliaria.Domain.UseCase
             return _repos.ExistePropiedad(Nombre);
         }
 
-        public PropiedadDto EliminarPropiedad(string Nombre)
+        public string EliminarPropiedad(string Nombre)
         {
+            DateTime date = DateTime.Now;
+            bool status = false;
+            string menssage = "";
             PropiedadDto Dto = ExisteData(Nombre);
-
+            PropieadadDomain _Propiedad = _mapper.Map<PropieadadDomain>(Dto);
+            DateTime fechadate = Convert.ToDateTime(Dto.Fecha);
             if (Dto == null)
             {
                 throw new BusinessRuleExeption("El registro a Eliminar no existe, favor Verificar");
             }
-            PropieadadDomain _Propiedad = _mapper.Map<PropieadadDomain>(Dto);
-            return _repos.Eliminar(_Propiedad);
+            if (fechadate.Day >= date.Day && fechadate.Month < date.Month && fechadate.Year >= date.Year)
+            {
+                if (_repos.Eliminar(_Propiedad) != null)
+                    status = true;
+
+            }
+            else {
+
+                if (_repos.ActualizarPropiedad(_Propiedad) != null)
+                    status =  true;
+                
+               
+            }
+            if (status)
+            {
+                menssage = "Eliminacion Realizada Exitosamente";
+            }
+            return menssage;
 
         }
     }

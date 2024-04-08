@@ -8,6 +8,7 @@ namespace Inmobiliaria.Domain.DTO
 {
     public class PropiedadDto
     {
+        public int IdPopiedad { get; set; }
         public string Nombre { get; set; }
         public string Ubicacion { get; set; }
         public string Disponibilidad { get; set; }

@@ -11,8 +11,9 @@ namespace Inmobiliaria.Domain.Interfaces
     public interface IPropiedadesRepos
     {
         List<PropiedadDto> GetValorMaxMin(int Max, int Min);
-        PropiedadDto Agregar(PropieadadDomain propiedad);
+        CreatePropiedadDto Agregar(PropieadadDomain propiedad);
         PropiedadDto ExistePropiedad(string Nombre);
-        PropiedadDto Eliminar(PropieadadDomain propiedad);
+        bool Eliminar(PropieadadDomain propiedad);
+        PropiedadDto ActualizarPropiedad(PropieadadDomain propieadad);
     }
 }

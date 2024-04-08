@@ -28,7 +28,7 @@ namespace Inmobiliaria.Api.Controllers
 
         [HttpPost]
         [Route("CreatePropiedad")]
-        public ResponseDto CreatePropiedad(PropiedadDto DTO)
+        public ResponseDto CreatePropiedad(CreatePropiedadDto DTO)
         {
             _logger.LogInformation("INICIANDO LA CREACION DE LAS PROPIEDAD ");
             var Response = new ResponseDto()
@@ -52,6 +52,22 @@ namespace Inmobiliaria.Api.Controllers
 
             };
             _logger.LogInformation("Finalizando Consulta");
+
+            return response;
+        }
+        [HttpDelete]
+        [Route("EliminarPropiedad")]
+        public ResponseDto EliminarPropiedad(string Nombre )
+        {
+
+            _logger.LogInformation("INICIANDO LA ELIMINACION DE LA PROPIEDAD");
+            var response = new ResponseDto()
+            {
+
+                Status = ResponseBuilder.CreateSuccssReponse(HttpStatusCode.OK),
+                Data = _Propiedad.EliminarPropiedad(Nombre)
+            };
+            _logger.LogInformation("Finalizando Eliminacion");
 
             return response;
         }

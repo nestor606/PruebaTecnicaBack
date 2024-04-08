@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Inmobiliaria.Infraestructura.Repository
 {
@@ -23,23 +24,49 @@ namespace Inmobiliaria.Infraestructura.Repository
             _DbContext = Conexion;
             _Mapper = mapper;
         }
-        public PropiedadDto Agregar(PropieadadDomain propiedad)
+
+        public PropiedadDto ActualizarPropiedad(PropieadadDomain propiedad)
+        {
+            propiedad.Estado = "0";
+            _DbContext.Propiedad.Attach(_Mapper.Map<Propiedad>(propiedad));
+            _DbContext.Entry(_Mapper.Map<Propiedad>(propiedad)).State = EntityState.Modified;
+            _DbContext.SaveChanges();
+
+            return _Mapper.Map<PropiedadDto>(propiedad);
+        }
+
+        public CreatePropiedadDto Agregar(PropieadadDomain propiedad)
         {
              var propiedadEntity = _DbContext.Propiedad.Add(_Mapper.Map<Propiedad>(propiedad));
             _DbContext.SaveChanges();
-            return _Mapper.Map<PropiedadDto>(propiedad);
+            return _Mapper.Map<CreatePropiedadDto>(propiedad);
             
         }
 
-        public PropiedadDto Eliminar(PropieadadDomain propiedad)
+        public bool Eliminar(PropieadadDomain propiedad)
         {
-            throw new NotImplementedException();
+            _DbContext.Remove(_Mapper.Map<Propiedad>(propiedad));
+            _DbContext.SaveChanges();
+            return true;
         }
 
         public PropiedadDto ExistePropiedad(string Nombre)
         {
-            var Existe = _DbContext.Propiedad.Where(x => x.Nombre == Nombre).FirstOrDefault();
-            return _Mapper.Map<PropiedadDto>(Existe);
+
+
+            PropiedadDto? Query = (from p in _DbContext.Propiedad
+                                  where p.Nombre == Nombre
+                                  select new PropiedadDto
+                                  {
+                                      IdPopiedad = p.IdPopiedad,
+                                      Nombre = p.Nombre,
+                                      Disponibilidad = p.Disponibilidad,
+                                      Fecha = p.Fecha,
+                                      Precio = p.Precio,
+                                      Ubicacion = p.Ubicacion,
+                                      UrlImagen = p.UrlImagen
+                                  }).FirstOrDefault();
+            return Query;
         }
 
         public List<PropiedadDto> GetValorMaxMin(int Max, int Min)
