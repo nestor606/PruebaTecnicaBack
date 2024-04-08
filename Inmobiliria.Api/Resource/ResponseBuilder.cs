@@ -14,6 +14,7 @@ namespace Inmobiliaria.Api.Resource
             {
                 Code = code,
                 Description = code.ToString(),
+                
             };
         }
         public static StatusDto CreateErrorrResponse(HttpStatusCode code, string message) {

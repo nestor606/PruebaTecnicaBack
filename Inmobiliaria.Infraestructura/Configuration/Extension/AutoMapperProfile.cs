@@ -14,6 +14,9 @@ namespace Inmobiliaria.Infraestructura.Configuration.Extension
         {
             CreateMap<Propiedad, PropieadadDomain>();
             CreateMap<PropieadadDomain, Propiedad>();
+
+            CreateMap<Arrendar, ArrendarDomain>();
+            CreateMap<ArrendarDomain, Arrendar>();
         }
     }
 }

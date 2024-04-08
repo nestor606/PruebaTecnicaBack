@@ -13,7 +13,7 @@ namespace Inmobiliaria.Infraestructura.Configuration.Contexto
     public class ApplicationsContext:DbContext
     {
         public DbSet<Propiedad> Propiedad { get; set; }
-        public DbSet<Arrendar> Arredar { get; set; }
+        public DbSet<Arrendar> Arrendar { get; set; }
 
         public ApplicationsContext()
         {

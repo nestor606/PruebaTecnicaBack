@@ -27,9 +27,8 @@ namespace Inmobiliaria.Infraestructura.Repository
 
         public PropiedadDto ActualizarPropiedad(PropieadadDomain propiedad)
         {
-            propiedad.Estado = "0";
-            _DbContext.Propiedad.Attach(_Mapper.Map<Propiedad>(propiedad));
-            _DbContext.Entry(_Mapper.Map<Propiedad>(propiedad)).State = EntityState.Modified;
+            
+            _DbContext.Propiedad.Update(_Mapper.Map<Propiedad>(propiedad));
             _DbContext.SaveChanges();
 
             return _Mapper.Map<PropiedadDto>(propiedad);
@@ -50,12 +49,10 @@ namespace Inmobiliaria.Infraestructura.Repository
             return true;
         }
 
-        public PropiedadDto ExistePropiedad(string Nombre)
+        public PropiedadDto BuscarporNombre(string Nombre)
         {
-
-
             PropiedadDto? Query = (from p in _DbContext.Propiedad
-                                  where p.Nombre == Nombre
+                                  where p.Nombre == Nombre && p.Disponibilidad == "SI" && p.Estado == "1" 
                                   select new PropiedadDto
                                   {
                                       IdPopiedad = p.IdPopiedad,
@@ -65,14 +62,14 @@ namespace Inmobiliaria.Infraestructura.Repository
                                       Precio = p.Precio,
                                       Ubicacion = p.Ubicacion,
                                       UrlImagen = p.UrlImagen
-                                  }).FirstOrDefault();
+                                  }).AsNoTracking().FirstOrDefault();
             return Query;
         }
 
         public List<PropiedadDto> GetValorMaxMin(int Max, int Min)
         {
             IQueryable<PropiedadDto> query = (from p in _DbContext.Propiedad 
-                                              where p.Disponibilidad == "SI" && p.Precio >= Min && p.Precio <= Max 
+                                              where p.Disponibilidad == "SI" && p.Estado == "1" && p.Precio >= Min && p.Precio <= Max 
                                               select new PropiedadDto { 
                                                     Nombre = p.Nombre,
                                                     Precio = p.Precio,
@@ -81,6 +78,43 @@ namespace Inmobiliaria.Infraestructura.Repository
                                                     UrlImagen = p.UrlImagen
                                              });
             return query.ToList();
+        }
+
+        public List<PropiedadDto> GetPropiedadDtos()
+        {
+            IQueryable<PropiedadDto> query = (from p in _DbContext.Propiedad
+                                              where p.Disponibilidad == "SI" && p.Estado == "1"
+                                              select new PropiedadDto
+                                              {
+                                                  IdPopiedad = p.IdPopiedad,
+                                                  Nombre = p.Nombre,
+                                                  Disponibilidad = p.Disponibilidad,
+                                                  Fecha = p.Fecha,
+                                                  Precio = p.Precio,
+                                                  Ubicacion = p.Ubicacion,
+                                                  UrlImagen = p.UrlImagen
+
+                                              }).AsNoTracking();
+            return query.ToList();
+        }
+
+        public PropiedadDto BuscarporId(int id)
+        {
+            PropiedadDto? query = (from p in _DbContext.Propiedad
+                                              where p.IdPopiedad == id && p.Estado == "1" && p.Disponibilidad == "SI" 
+                                              select new PropiedadDto
+                                              {
+                                                  IdPopiedad = p.IdPopiedad,
+                                                  Nombre = p.Nombre,
+                                                  Disponibilidad = p.Disponibilidad,
+                                                  Fecha = p.Fecha,
+                                                  Precio = p.Precio,
+                                                  Ubicacion = p.Ubicacion,
+                                                  UrlImagen = p.UrlImagen,
+                                                  Estado = p.Estado
+
+                                              }).AsNoTracking().FirstOrDefault();
+            return query;
         }
     }
 }

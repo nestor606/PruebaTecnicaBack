@@ -12,6 +12,7 @@ namespace Inmobiliaria.Domain.UseCase.Interfaces
         List<PropiedadDto> GetValorMaxMinPropiedades(int Max, int Min);
         CreatePropiedadDto AgregarPropiedad(CreatePropiedadDto propiedad);
         String EliminarPropiedad(string Nombre);
+        PropiedadDto EditarPropieda(PropiedadDto propiedad);
 
     }
 }

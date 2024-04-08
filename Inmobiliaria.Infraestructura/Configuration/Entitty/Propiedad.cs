@@ -15,5 +15,6 @@ namespace Inmobiliaria.Infraestructura.Configuration.Entitty
         public int Precio { get; set; }
         public string UrlImagen { get; set; }
         public string Fecha { get; set; }
+        public string? Estado { get; set; }
     }
 }

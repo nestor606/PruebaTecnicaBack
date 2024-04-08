@@ -23,6 +23,8 @@ namespace Inmobiliaria.Domain.Util.Mapper
             CreateMap<ArrendarDTO, ArrendarDomain>();
 
             
+
+            
         }
     }
 }

@@ -5,17 +5,36 @@ using Inmobiliaria.Infraestructura.Configuration.Contexto;
 
 using Microsoft.EntityFrameworkCore;
 using Inmobiliaria.Infraestructura.Configuration.Extension;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SqlConnections");
 // Add services to the container.
 builder.Services.AddCommonLayer();
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.EnableEndpointRouting = false);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
 builder.Services.AddDbContext<ApplicationsContext>(x =>
 {
@@ -41,7 +60,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseAuthentication();
+app.UseMvc();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -9,8 +9,12 @@ namespace Inmobiliaria.Api.Resource
     {
         public static void AddCommonLayer(this IServiceCollection services) {
 
-            services.AddTransient<Ipropiedades, PropiedadesUsecase>();
-            services.AddTransient<IPropiedadesRepos, PropiedadRepository>();
+
+            services.AddScoped<Ipropiedades, PropiedadesUsecase>();
+            services.AddScoped<IPropiedadesRepos, PropiedadRepository>();
+
+            services.AddScoped<IArrendar, ArrendarUseCase>();
+            services.AddScoped<IArrendarRepos,ArrendarRepository>();
 
         }
     }

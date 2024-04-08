@@ -10,5 +10,6 @@ namespace Inmobiliaria.Domain.DTO
     {
         public StatusDto? Status { get; set; }
         public object? Data { get; set; }
+        
     }
 }

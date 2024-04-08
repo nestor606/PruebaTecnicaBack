@@ -59,7 +59,7 @@ namespace Inmobiliaria.Domain.UseCase
         }
         public PropiedadDto ExisteData(string Nombre)
         {
-            return _repos.ExistePropiedad(Nombre);
+            return _repos.BuscarporNombre(Nombre);
         }
 
         public string EliminarPropiedad(string Nombre)
@@ -82,6 +82,7 @@ namespace Inmobiliaria.Domain.UseCase
             }
             else {
 
+                _Propiedad.Estado = "0";
                 if (_repos.ActualizarPropiedad(_Propiedad) != null)
                     status =  true;
                 
@@ -93,6 +94,49 @@ namespace Inmobiliaria.Domain.UseCase
             }
             return menssage;
 
+        }
+
+        public PropiedadDto EditarPropieda(PropiedadDto propiedad)
+        {
+            UbicacionDto ubicacionDto = new UbicacionDto();
+            var request = _repos.BuscarporId(propiedad.IdPopiedad);
+            if (request.Ubicacion != propiedad.Ubicacion) {
+
+                if (request.Disponibilidad == "NO")
+                {
+                    throw new BusinessRuleExeption("No se puede modificar la ubicación de la propiedad, ya fue arrendada.");
+                }
+                   
+            }
+            if (request.Precio != propiedad.Precio )
+            {
+                if (request.Disponibilidad == "NO")
+                {
+                    throw new BusinessRuleExeption("No se puede modificar el precio de la propiedad, ya fue arrendada.");
+                }
+                else {
+                    foreach (var item in ubicacionDto.ObtenerUbicacion())
+                    {
+                        if (propiedad.Ubicacion == item.Nombre)
+                        {
+                            if (item.Nombre == "Cali" || item.Nombre == "Bogota")
+                            {
+                                if (propiedad.Precio <= 2000000)
+                                {
+                                    throw new BusinessRuleExeption($"El valor no corresponde a la ubicacion para {item.Nombre} .");
+                                }
+                                
+                            }
+                        }
+
+                    }
+
+                }  
+            }
+            var response =  _repos.ActualizarPropiedad(_mapper.Map<PropieadadDomain>(propiedad));
+
+
+            return response;
         }
     }
 }

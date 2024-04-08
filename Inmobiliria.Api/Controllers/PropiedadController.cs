@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Inmobiliaria.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class PropiedadController : Controller
     {
@@ -66,6 +67,21 @@ namespace Inmobiliaria.Api.Controllers
 
                 Status = ResponseBuilder.CreateSuccssReponse(HttpStatusCode.OK),
                 Data = _Propiedad.EliminarPropiedad(Nombre)
+            };
+            _logger.LogInformation("Finalizando Eliminacion");
+
+            return response;
+        }
+        [HttpGet]
+        [Route("EditarPropiedad")]
+        public ResponseDto EditarPropiedad(PropiedadDto propiedad) {
+
+            _logger.LogInformation("INICIANDO LA EDICCION DE LA PROPIEDAD");
+            var response = new ResponseDto()
+            {
+
+                Status = ResponseBuilder.CreateSuccssReponse(HttpStatusCode.OK),
+                Data = _Propiedad.EditarPropieda(propiedad)
             };
             _logger.LogInformation("Finalizando Eliminacion");
 
