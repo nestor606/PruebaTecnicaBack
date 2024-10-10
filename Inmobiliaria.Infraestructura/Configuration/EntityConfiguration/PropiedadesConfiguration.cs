@@ -18,7 +18,10 @@ namespace Inmobiliaria.Infraestructura.Configuration.EntityConfiguration
             builder.Property(x => x.IdPopiedad)
             .HasColumnName("IdPopiedad")
             .HasColumnType("int");
-            builder.Property(x => x.Nombre).HasMaxLength(50).HasColumnName("Nombre").HasColumnType("varhcar");
+            builder.Property(x => x.Nombre)
+            .HasMaxLength(50)
+            .HasColumnName("Nombre")
+            .HasColumnType("varhcar");
             builder.Property(x => x.Ubicacion).HasMaxLength(50).HasColumnName("Ubicacion").HasColumnType("varchar");
             builder.Property(x => x.Disponibilidad).HasMaxLength(50).HasColumnName("Disponibilidad").HasColumnType("varhcar");
             builder.Property(x => x.Precio).HasColumnName("Precio").HasColumnType("int");
